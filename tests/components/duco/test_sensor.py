@@ -71,10 +71,35 @@ async def test_diagnostic_sensor_entities_disabled_by_default(
     entity_registry: er.EntityRegistry,
 ) -> None:
     """Test that diagnostic sensor entities are disabled by default."""
-    for entity_id in ("sensor.living_signal_strength",):
+    for entity_id in (
+        "sensor.living_signal_strength",
+        "sensor.living_ventilation_subsystem",
+        "sensor.living_ventcool_subsystem",
+        "sensor.living_sun_control_subsystem",
+    ):
         entry = entity_registry.async_get(entity_id)
         assert entry is not None
         assert entry.disabled_by == er.RegistryEntryDisabler.INTEGRATION
+
+
+@pytest.mark.usefixtures("entity_registry_enabled_by_default", "init_integration")
+async def test_diagnostics_coordinator_error_marks_unavailable(
+    hass: HomeAssistant,
+    mock_duco_client: AsyncMock,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Test that diagnostic subsystem sensors become unavailable when async_get_diagnostics fails."""
+    mock_duco_client.async_get_diagnostics = AsyncMock(
+        side_effect=DucoError("diag error")
+    )
+
+    freezer.tick(SCAN_INTERVAL)
+    async_fire_time_changed(hass)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    state = hass.states.get("sensor.living_ventilation_subsystem")
+    assert state is not None
+    assert state.state == STATE_UNAVAILABLE
 
 
 @pytest.mark.usefixtures("init_integration")

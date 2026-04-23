@@ -7,7 +7,7 @@ import logging
 
 from duco import DucoClient
 from duco.exceptions import DucoConnectionError, DucoError
-from duco.models import BoardInfo, Node
+from duco.models import BoardInfo, DiagComponent, Node
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -21,12 +21,13 @@ _LOGGER = logging.getLogger(__name__)
 type DucoConfigEntry = ConfigEntry[DucoCoordinator]
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class DucoData:
     """Data returned by the Duco coordinator."""
 
     nodes: dict[int, Node]
     rssi_wifi: int | None
+    diagnostics: list[DiagComponent]
 
 
 class DucoCoordinator(DataUpdateCoordinator[DucoData]):
@@ -96,7 +97,23 @@ class DucoCoordinator(DataUpdateCoordinator[DucoData]):
                 translation_placeholders={"error": repr(err)},
             ) from err
 
+        try:
+            diagnostics = await self.client.async_get_diagnostics()
+        except DucoConnectionError as err:
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="cannot_connect",
+                translation_placeholders={"error": repr(err)},
+            ) from err
+        except DucoError as err:
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="api_error",
+                translation_placeholders={"error": repr(err)},
+            ) from err
+
         return DucoData(
             nodes={node.node_id: node for node in nodes},
             rssi_wifi=lan_info.rssi_wifi,
+            diagnostics=diagnostics,
         )

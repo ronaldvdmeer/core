@@ -198,7 +198,9 @@ def mock_duco_client(
         client.async_get_lan_info.return_value = mock_lan_info
         client.async_get_nodes.return_value = mock_nodes
         client.async_get_diagnostics.return_value = [
-            DiagComponent(component="Ventilation", status=DiagStatus.OK)
+            DiagComponent(component="Ventilation", status=DiagStatus.OK),
+            DiagComponent(component="VentCool", status=DiagStatus.OK),
+            DiagComponent(component="SunCtrl", status=DiagStatus.OK),
         ]
         client.async_get_write_req_remaining.return_value = 100
         yield client

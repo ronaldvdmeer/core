@@ -1,6 +1,15 @@
 {
   "entity": {
     "sensor": {
+      "diag_sunctrl": {
+        "default": "mdi:weather-sunny"
+      },
+      "diag_ventcool": {
+        "default": "mdi:home-thermometer-outline"
+      },
+      "diag_ventilation": {
+        "default": "mdi:fan"
+      },
       "iaq_co2": {
         "default": "mdi:molecule-co2"
       },

@@ -47,6 +47,30 @@
       }
     },
     "sensor": {
+      "diag_sunctrl": {
+        "name": "Sun control subsystem",
+        "state": {
+          "disable": "Disabled",
+          "error": "Error",
+          "ok": "OK"
+        }
+      },
+      "diag_ventcool": {
+        "name": "VentCool subsystem",
+        "state": {
+          "disable": "Disabled",
+          "error": "Error",
+          "ok": "OK"
+        }
+      },
+      "diag_ventilation": {
+        "name": "Ventilation subsystem",
+        "state": {
+          "disable": "Disabled",
+          "error": "Error",
+          "ok": "OK"
+        }
+      },
       "iaq_co2": {
         "name": "CO2 air quality index"
       },

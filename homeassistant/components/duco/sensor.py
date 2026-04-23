@@ -6,7 +6,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 import logging
 
-from duco.models import Node, NodeType, VentilationState
+from duco.models import DiagComponent, DiagStatus, Node, NodeType, VentilationState
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -107,6 +107,13 @@ BOX_SENSOR_DESCRIPTIONS: tuple[DucoBoxSensorEntityDescription, ...] = (
     ),
 )
 
+# Maps the component name returned by the API to a translation key.
+DIAG_COMPONENT_TRANSLATION_KEYS: dict[str, str] = {
+    "Ventilation": "diag_ventilation",
+    "VentCool": "diag_ventcool",
+    "SunCtrl": "diag_sunctrl",
+}
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -164,6 +171,12 @@ async def async_setup_entry(
                 for description in BOX_SENSOR_DESCRIPTIONS
                 if node.general.node_type == NodeType.BOX
             )
+            if node.general.node_type == NodeType.BOX:
+                new_entities.extend(
+                    DucoBoxDiagComponentSensor(coordinator, node, diag)
+                    for diag in coordinator.data.diagnostics
+                    if diag.component in DIAG_COMPONENT_TRANSLATION_KEYS
+                )
         if new_entities:
             async_add_entities(new_entities)
 
@@ -217,3 +230,35 @@ class DucoBoxSensorEntity(DucoEntity, SensorEntity):
     def native_value(self) -> int | float | None:
         """Return the sensor value."""
         return self.entity_description.value_fn(self.coordinator)
+
+
+class DucoBoxDiagComponentSensor(DucoEntity, SensorEntity):
+    """Sensor entity for a Duco diagnostic subsystem status."""
+
+    _attr_device_class = SensorDeviceClass.ENUM
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_entity_registry_enabled_default = False
+    _attr_options = [s.lower() for s in DiagStatus]
+
+    def __init__(
+        self,
+        coordinator: DucoCoordinator,
+        node: Node,
+        diag: DiagComponent,
+    ) -> None:
+        """Initialize the diagnostic component sensor."""
+        super().__init__(coordinator, node)
+        self._component = diag.component
+        self._attr_translation_key = DIAG_COMPONENT_TRANSLATION_KEYS[diag.component]
+        self._attr_unique_id = (
+            f"{coordinator.config_entry.unique_id}_{node.node_id}"
+            f"_{diag.component.lower()}_diag"
+        )
+
+    @property
+    def native_value(self) -> str | None:
+        """Return the subsystem status."""
+        for diag in self.coordinator.data.diagnostics:
+            if diag.component == self._component:
+                return diag.status.lower()
+        return None
