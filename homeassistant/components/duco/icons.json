@@ -7,6 +7,9 @@
       "iaq_rh": {
         "default": "mdi:water-percent"
       },
+      "target_flow_level": {
+        "default": "mdi:gauge"
+      },
       "ventilation_state": {
         "default": "mdi:tune-variant"
       }
