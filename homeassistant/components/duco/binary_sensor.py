@@ -82,9 +82,12 @@ class DucoDiagnosticBinarySensor(DucoEntity, BinarySensorEntity):
         self._attr_translation_key = DIAG_COMPONENT_TO_TRANSLATION_KEY[diag.component]
 
     @property
-    def is_on(self) -> bool:
+    def is_on(self) -> bool | None:
         """Return True if the subsystem is in an error state."""
-        return any(
-            d.component == self._component and d.status == DiagStatus.ERROR
-            for d in self.coordinator.data.diagnostics
-        )
+        # Treat a missing component in the latest diagnostics payload as
+        # unknown instead of healthy so incomplete API data is not masked.
+        for diagnostic in self.coordinator.data.diagnostics:
+            if diagnostic.component == self._component:
+                return diagnostic.status == DiagStatus.ERROR
+
+        return None

@@ -8,7 +8,7 @@ from duco.models import DiagComponent, DiagStatus
 import pytest
 from syrupy.assertion import SnapshotAssertion
 
-from homeassistant.const import STATE_ON, Platform
+from homeassistant.const import STATE_ON, STATE_UNKNOWN, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
@@ -56,3 +56,20 @@ async def test_diagnostic_error_state(
     await hass.async_block_till_done()
 
     assert hass.states.get("binary_sensor.living_ventilation").state == STATE_ON
+
+
+async def test_diagnostic_missing_component_state_unknown(
+    hass: HomeAssistant,
+    mock_duco_client: AsyncMock,
+    init_integration: MockConfigEntry,
+) -> None:
+    """Test that a binary sensor becomes unknown when its component disappears."""
+    mock_duco_client.async_get_diagnostics.return_value = [
+        DiagComponent(component="VentCool", status=DiagStatus.OK),
+        DiagComponent(component="SunCtrl", status=DiagStatus.OK),
+    ]
+    coordinator = init_integration.runtime_data
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+
+    assert hass.states.get("binary_sensor.living_ventilation").state == STATE_UNKNOWN
