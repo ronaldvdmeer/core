@@ -1,5 +1,28 @@
 {
   "entity": {
+    "binary_sensor": {
+      "diag_communication": {
+        "default": "mdi:access-point"
+      },
+      "diag_modbus": {
+        "default": "mdi:bus"
+      },
+      "diag_network": {
+        "default": "mdi:network"
+      },
+      "diag_sun_ctrl": {
+        "default": "mdi:sun-angle"
+      },
+      "diag_vent_cool": {
+        "default": "mdi:thermometer-chevron-down"
+      },
+      "diag_ventilation": {
+        "default": "mdi:hvac"
+      },
+      "diag_weather_station": {
+        "default": "mdi:weather-partly-cloudy"
+      }
+    },
     "sensor": {
       "iaq_co2": {
         "default": "mdi:molecule-co2"

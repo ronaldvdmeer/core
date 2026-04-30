@@ -11,7 +11,31 @@
     }),
     'duco_diagnostics': list([
       dict({
+        'component': 'Communication',
+        'status': 'Ok',
+      }),
+      dict({
+        'component': 'Modbus',
+        'status': 'Ok',
+      }),
+      dict({
+        'component': 'Network',
+        'status': 'Ok',
+      }),
+      dict({
+        'component': 'SunCtrl',
+        'status': 'Ok',
+      }),
+      dict({
+        'component': 'VentCool',
+        'status': 'Ok',
+      }),
+      dict({
         'component': 'Ventilation',
+        'status': 'Ok',
+      }),
+      dict({
+        'component': 'WeatherStation',
         'status': 'Ok',
       }),
     ]),

@@ -35,6 +35,29 @@
     }
   },
   "entity": {
+    "binary_sensor": {
+      "diag_communication": {
+        "name": "Communication"
+      },
+      "diag_modbus": {
+        "name": "Modbus"
+      },
+      "diag_network": {
+        "name": "Network"
+      },
+      "diag_sun_ctrl": {
+        "name": "Sun control"
+      },
+      "diag_vent_cool": {
+        "name": "Ventilation cooling"
+      },
+      "diag_ventilation": {
+        "name": "Ventilation"
+      },
+      "diag_weather_station": {
+        "name": "Weather station"
+      }
+    },
     "fan": {
       "ventilation": {
         "state_attributes": {
