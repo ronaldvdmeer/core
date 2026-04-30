@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem-entry]
+# name: test_binary_sensor_entities_state[binary_sensor.living_communication-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -13,7 +13,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.living_problem',
+    'entity_id': 'binary_sensor.living_communication',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -21,12 +21,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Problem',
+    'object_id_base': 'Communication',
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
     'original_icon': None,
-    'original_name': 'Problem',
+    'original_name': 'Communication',
     'platform': 'duco',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -36,21 +36,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem-state]
+# name: test_binary_sensor_entities_state[binary_sensor.living_communication-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'problem',
-      'friendly_name': 'Living Problem',
+      'friendly_name': 'Living Communication',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.living_problem',
+    'entity_id': 'binary_sensor.living_communication',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_2-entry]
+# name: test_binary_sensor_entities_state[binary_sensor.living_modbus-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -64,7 +64,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.living_problem_2',
+    'entity_id': 'binary_sensor.living_modbus',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -72,12 +72,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Problem',
+    'object_id_base': 'Modbus',
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
     'original_icon': None,
-    'original_name': 'Problem',
+    'original_name': 'Modbus',
     'platform': 'duco',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -87,21 +87,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_2-state]
+# name: test_binary_sensor_entities_state[binary_sensor.living_modbus-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'problem',
-      'friendly_name': 'Living Problem',
+      'friendly_name': 'Living Modbus',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.living_problem_2',
+    'entity_id': 'binary_sensor.living_modbus',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_3-entry]
+# name: test_binary_sensor_entities_state[binary_sensor.living_network-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -115,7 +115,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.living_problem_3',
+    'entity_id': 'binary_sensor.living_network',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -123,12 +123,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Problem',
+    'object_id_base': 'Network',
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
     'original_icon': None,
-    'original_name': 'Problem',
+    'original_name': 'Network',
     'platform': 'duco',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -138,65 +138,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_3-state]
+# name: test_binary_sensor_entities_state[binary_sensor.living_network-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'problem',
-      'friendly_name': 'Living Problem',
+      'friendly_name': 'Living Network',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.living_problem_3',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_4-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.living_problem_4',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Problem',
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
-    'original_icon': None,
-    'original_name': 'Problem',
-    'platform': 'duco',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'diag_weather_station',
-    'unique_id': 'aa:bb:cc:dd:ee:ff_diag_weatherstation',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_binary_sensor_entities_state[binary_sensor.living_problem_4-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'problem',
-      'friendly_name': 'Living Problem',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.living_problem_4',
+    'entity_id': 'binary_sensor.living_network',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -350,6 +299,57 @@
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.living_ventilation_cooling',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensor_entities_state[binary_sensor.living_weather_station-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.living_weather_station',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Weather station',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
+    'original_icon': None,
+    'original_name': 'Weather station',
+    'platform': 'duco',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'diag_weather_station',
+    'unique_id': 'aa:bb:cc:dd:ee:ff_diag_weatherstation',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensor_entities_state[binary_sensor.living_weather_station-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'problem',
+      'friendly_name': 'Living Weather station',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.living_weather_station',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

@@ -8,7 +8,7 @@ from duco.models import DiagComponent, DiagStatus
 import pytest
 from syrupy.assertion import SnapshotAssertion
 
-from homeassistant.const import Platform
+from homeassistant.const import STATE_ON, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
@@ -40,10 +40,10 @@ async def test_binary_sensor_entities_state(
     await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
 
 
-@pytest.mark.usefixtures("init_integration")
 async def test_diagnostic_error_state(
     hass: HomeAssistant,
     mock_duco_client: AsyncMock,
+    init_integration: MockConfigEntry,
 ) -> None:
     """Test that a binary sensor is on (problem) when a subsystem reports an error."""
     mock_duco_client.async_get_diagnostics.return_value = [
@@ -51,7 +51,8 @@ async def test_diagnostic_error_state(
         DiagComponent(component="VentCool", status=DiagStatus.OK),
         DiagComponent(component="SunCtrl", status=DiagStatus.OK),
     ]
-    await mock_duco_client.async_get_diagnostics()
+    coordinator = init_integration.runtime_data
+    await coordinator.async_refresh()
     await hass.async_block_till_done()
 
-    assert hass.states.get("binary_sensor.living_ventilation") is not None
+    assert hass.states.get("binary_sensor.living_ventilation").state == STATE_ON

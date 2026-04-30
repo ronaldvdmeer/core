@@ -84,12 +84,7 @@ class DucoDiagnosticBinarySensor(DucoEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool:
         """Return True if the subsystem is in an error state."""
-        diag = next(
-            (
-                d
-                for d in self.coordinator.data.diagnostics
-                if d.component == self._component
-            ),
-            None,
+        return any(
+            d.component == self._component and d.status == DiagStatus.ERROR
+            for d in self.coordinator.data.diagnostics
         )
-        return diag is not None and diag.status == DiagStatus.ERROR
