@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict
 from typing import Any
 
-from duco.exceptions import DucoConnectionError
+from duco_connectivity.exceptions import DucoConnectionError
 
 from homeassistant.components.diagnostics import async_redact_data
 from homeassistant.const import CONF_HOST

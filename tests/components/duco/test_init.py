@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from ssl import SSLContext
-from unittest.mock import ANY, AsyncMock, MagicMock, patch
+from unittest.mock import ANY, AsyncMock, patch
 
-from duco.exceptions import DucoConnectionError, DucoError
-from duco.models import BoardInfo, DiagComponent, DiagStatus, LanInfo, Node
+from duco_connectivity.exceptions import DucoConnectionError, DucoError
+from duco_connectivity.models import BoardInfo, DiagComponent, DiagStatus, LanInfo, Node
 import pytest
 
 from homeassistant.config_entries import ConfigEntryState
@@ -76,25 +75,18 @@ async def test_unload_entry(
     assert init_integration.state is ConfigEntryState.NOT_LOADED
 
 
-async def test_setup_entry_builds_ssl_context_in_executor(
+async def test_setup_entry_initializes_client_with_host(
     hass: HomeAssistant,
     mock_config_entry: MockConfigEntry,
     mock_board_info: BoardInfo,
     mock_lan_info: LanInfo,
     mock_nodes: list[Node],
 ) -> None:
-    """Test that build_ssl_context runs in an executor and its result is passed to DucoClient."""
-    mock_ssl_context = MagicMock(spec=SSLContext)
-    with (
-        patch(
-            "homeassistant.components.duco.build_ssl_context",
-            return_value=mock_ssl_context,
-        ) as mock_build,
-        patch(
-            "homeassistant.components.duco.DucoClient",
-            autospec=True,
-        ) as mock_client_class,
-    ):
+    """Test that setup initializes the Duco client with the host."""
+    with patch(
+        "homeassistant.components.duco.DucoClient",
+        autospec=True,
+    ) as mock_client_class:
         mock_client_class.return_value.async_get_board_info.return_value = (
             mock_board_info
         )
@@ -108,9 +100,7 @@ async def test_setup_entry_builds_ssl_context_in_executor(
         await hass.config_entries.async_setup(mock_config_entry.entry_id)
         await hass.async_block_till_done()
 
-    mock_build.assert_called_once()
     mock_client_class.assert_called_once_with(
         session=ANY,
         host=TEST_HOST,
-        ssl_context=mock_ssl_context,
     )

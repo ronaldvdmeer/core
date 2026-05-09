@@ -5,7 +5,7 @@ from __future__ import annotations
 from http import HTTPStatus
 from unittest.mock import AsyncMock
 
-from duco.exceptions import DucoConnectionError
+from duco_connectivity.exceptions import DucoConnectionError
 import pytest
 from syrupy.assertion import SnapshotAssertion
 
