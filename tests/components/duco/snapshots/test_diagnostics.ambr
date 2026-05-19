@@ -181,6 +181,74 @@
           'time_state_remain': 0,
         }),
       }),
+      '60': dict({
+        'general': dict({
+          'asso': 1,
+          'identify': 0,
+          'name': 'Bedroom Valve',
+          'network_type': 'RF',
+          'node_type': 'VLV',
+          'parent': 1,
+          'raw_payload': dict({
+          }),
+          'sub_type': 0,
+        }),
+        'motor_state': dict({
+          'device_type': None,
+          'pos': 64,
+          'pos_req': None,
+          'raw_payload': dict({
+          }),
+          'req': None,
+        }),
+        'node_id': 60,
+        'raw_payload': dict({
+        }),
+        'sensor': None,
+        'ventilation': dict({
+          'flow_lvl_tgt': 67,
+          'mode': 'UNKNOWN',
+          'raw_payload': dict({
+          }),
+          'state': 'MAN2x3',
+          'time_state_end': 1700000900,
+          'time_state_remain': 900,
+        }),
+      }),
+      '61': dict({
+        'general': dict({
+          'asso': 1,
+          'identify': 0,
+          'name': 'Office Extract Valve',
+          'network_type': 'RF',
+          'node_type': 'EAV',
+          'parent': 1,
+          'raw_payload': dict({
+          }),
+          'sub_type': 0,
+        }),
+        'motor_state': dict({
+          'device_type': None,
+          'pos': 0,
+          'pos_req': None,
+          'raw_payload': dict({
+          }),
+          'req': None,
+        }),
+        'node_id': 61,
+        'raw_payload': dict({
+        }),
+        'sensor': None,
+        'ventilation': dict({
+          'flow_lvl_tgt': 0,
+          'mode': 'AUTO',
+          'raw_payload': dict({
+          }),
+          'state': 'AUTO',
+          'time_state_end': 0,
+          'time_state_remain': 0,
+        }),
+      }),
     }),
     'write_requests_remaining': 100,
   })

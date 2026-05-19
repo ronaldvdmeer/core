@@ -20,7 +20,8 @@ class DucoEntity(CoordinatorEntity[DucoCoordinator]):
         super().__init__(coordinator)
         self._node_id = node.node_id
         mac = coordinator.config_entry.unique_id
-        assert mac is not None
+        if mac is None:
+            raise ValueError("Duco config entry is missing a unique ID")
         device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{mac}_{node.node_id}")},
             manufacturer="Duco",

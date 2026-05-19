@@ -12,6 +12,7 @@ from duco_connectivity import (
     LanInfo,
     Node,
     NodeGeneralInfo,
+    NodeMotorStateInfo,
     NodeSensorInfo,
     NodeVentilationInfo,
 )
@@ -195,6 +196,46 @@ def mock_nodes() -> list[Node]:
                 iaq_rh=90,
                 temp=22.5,
             ),
+        ),
+        Node(
+            node_id=60,
+            general=NodeGeneralInfo(
+                node_type="VLV",
+                sub_type=0,
+                network_type="RF",
+                parent=1,
+                asso=1,
+                name="Bedroom Valve",
+                identify=0,
+            ),
+            ventilation=NodeVentilationInfo(
+                state="MAN2x3",
+                time_state_remain=900,
+                time_state_end=1700000900,
+                mode="MANUAL",
+                flow_lvl_tgt=67,
+            ),
+            motor_state=NodeMotorStateInfo(pos=64),
+        ),
+        Node(
+            node_id=61,
+            general=NodeGeneralInfo(
+                node_type="EAV",
+                sub_type=0,
+                network_type="RF",
+                parent=1,
+                asso=1,
+                name="Office Extract Valve",
+                identify=0,
+            ),
+            ventilation=NodeVentilationInfo(
+                state="AUTO",
+                time_state_remain=0,
+                time_state_end=0,
+                mode="AUTO",
+                flow_lvl_tgt=0,
+            ),
+            motor_state=NodeMotorStateInfo(pos=0),
         ),
     ]
 

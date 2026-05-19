@@ -1,0 +1,107 @@
+# serializer version: 1
+# name: test_valve_entities_state[valve.bedroom_valve_opening-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'valve',
+    'entity_category': None,
+    'entity_id': 'valve.bedroom_valve_opening',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Opening',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Opening',
+    'platform': 'duco',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'opening',
+    'unique_id': 'aa:bb:cc:dd:ee:ff_60_opening',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_valve_entities_state[valve.bedroom_valve_opening-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_position': 67,
+      'friendly_name': 'Bedroom Valve Opening',
+      'is_closed': False,
+      'supported_features': <ValveEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'valve.bedroom_valve_opening',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'open',
+  })
+# ---
+# name: test_valve_entities_state[valve.office_extract_valve_opening-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'valve',
+    'entity_category': None,
+    'entity_id': 'valve.office_extract_valve_opening',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Opening',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Opening',
+    'platform': 'duco',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'opening',
+    'unique_id': 'aa:bb:cc:dd:ee:ff_61_opening',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_valve_entities_state[valve.office_extract_valve_opening-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_position': 0,
+      'friendly_name': 'Office Extract Valve Opening',
+      'is_closed': True,
+      'supported_features': <ValveEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'valve.office_extract_valve_opening',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'closed',
+  })
+# ---
