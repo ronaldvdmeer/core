@@ -9,7 +9,13 @@ from duco_connectivity.exceptions import (
     DucoError,
     DucoResponseError,
 )
-from duco_connectivity.models import BoardInfo, Node
+from duco_connectivity.models import (
+    BoardInfo,
+    KnownActionName,
+    Node,
+    NodeListActionItemList,
+    VentilationState,
+)
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -24,7 +30,41 @@ _LOGGER = logging.getLogger(__name__)
 type DucoConfigEntry = ConfigEntry[DucoCoordinator]
 
 
-@dataclass
+def _coerce_supported_ventilation_state(option: str) -> VentilationState | None:
+    """Return a known typed ventilation state advertised by action discovery."""
+    try:
+        state = VentilationState(option)
+    except ValueError:
+        return None
+    if state is VentilationState.UNKNOWN:
+        return None
+    return state
+
+
+def _extract_supported_ventilation_states(
+    node_actions: NodeListActionItemList,
+) -> dict[int, tuple[VentilationState, ...]]:
+    """Extract supported typed ventilation states per node from action discovery."""
+    supported_states_by_node: dict[int, tuple[VentilationState, ...]] = {}
+
+    for node_action_list in node_actions.nodes:
+        for action in node_action_list.actions:
+            if action.action.known_value != KnownActionName.SET_VENTILATION_STATE:
+                continue
+
+            supported_states = tuple(
+                state
+                for option in action.enum_values
+                if (state := _coerce_supported_ventilation_state(option)) is not None
+            )
+            if supported_states:
+                supported_states_by_node[node_action_list.node_id] = supported_states
+            break
+
+    return supported_states_by_node
+
+
+@dataclass(slots=True, kw_only=True)
 class DucoData:
     """Data returned by the Duco coordinator."""
 
@@ -37,6 +77,7 @@ class DucoCoordinator(DataUpdateCoordinator[DucoData]):
 
     config_entry: DucoConfigEntry
     board_info: BoardInfo
+    supported_ventilation_states: dict[int, tuple[VentilationState, ...]]
 
     def __init__(
         self,
@@ -81,6 +122,18 @@ class DucoCoordinator(DataUpdateCoordinator[DucoData]):
                 translation_key="api_error",
                 translation_placeholders={"error": repr(err)},
             ) from err
+
+        self.supported_ventilation_states = {}
+        try:
+            node_actions = await self.client.async_get_node_actions()
+        except DucoError as err:
+            # Action discovery only powers the optional select entity, so setup
+            # should continue when this supplemental endpoint is unavailable.
+            _LOGGER.debug("Could not fetch Duco node actions", exc_info=err)
+        else:
+            self.supported_ventilation_states = _extract_supported_ventilation_states(
+                node_actions
+            )
 
     async def _async_update_data(self) -> DucoData:
         """Fetch node data from the Duco box."""

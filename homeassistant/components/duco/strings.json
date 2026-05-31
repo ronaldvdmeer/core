@@ -48,6 +48,11 @@
         }
       }
     },
+    "select": {
+      "ventilation_state": {
+        "name": "Ventilation state"
+      }
+    },
     "sensor": {
       "iaq_co2": {
         "name": "CO2 air quality index"
