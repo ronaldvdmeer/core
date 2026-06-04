@@ -1,4 +1,9 @@
-"""Select platform for the Duco integration."""
+"""Expose raw Duco ventilation states as a Home Assistant select entity.
+
+Where the fan platform offers a generic low/medium/high abstraction, this file
+stays closer to the device API and lets the user pick one of the exact states
+the Duco box advertises as supported.
+"""
 
 import logging
 
@@ -36,7 +41,7 @@ async def async_setup_entry(
 
 
 class DucoVentilationStateSelectEntity(DucoEntity, SelectEntity):
-    """Select entity for choosing a Duco ventilation state."""
+    """Select entity for choosing one of the Duco-native ventilation states."""
 
     _attr_translation_key = "ventilation_state"
 
@@ -86,4 +91,6 @@ class DucoVentilationStateSelectEntity(DucoEntity, SelectEntity):
                 translation_key="failed_to_set_state",
                 translation_placeholders={"error": repr(err)},
             ) from err
+        # Just like the fan platform, writes always round-trip through the
+        # coordinator so the UI reflects device truth, not optimistic state.
         await self.coordinator.async_refresh()
